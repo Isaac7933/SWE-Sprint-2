@@ -1,0 +1,59 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class MyFrame extends JFrame implements ActionListener{
+	public JButton button;
+	public JTextField username;
+	public JTextField password;
+	String employeeNumber[][];
+	public String login[][] = {{"User1", "Password1"}, {"User2", "Password2"}, {"User3", "Password3"}};
+	public MyFrame(){
+		username = new JTextField();
+		username.setPreferredSize(new Dimension(250,50));
+		password = new JPasswordField();
+		password.setPreferredSize(new Dimension(250,50));
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new GridBagLayout());
+		button = new JButton("Login");
+		button.addActionListener(this);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		GridBagConstraints gbc = new GridBagConstraints();  
+		gbc.gridy = 1;
+		this.add(password, gbc);
+		gbc.gridy = 2;
+		this.add(username, new GridBagConstraints());
+		this.add(button, gbc);
+		this.setVisible(true);
+	}
+	public void actionPerformed(ActionEvent e) {
+		String user = username.getText();
+		String passwords = password.getText();
+		boolean isEmployee = false;
+		String employeeNumber = login[0][0];
+		for (int i = 0; i < login.length; i++) {
+			if (user.equals(login[i][0]) && passwords.equals(login[i][1]) && isEmployee == false) {
+				isEmployee = true;
+				employeeNumber = login[i][0];				
+			}
+		}
+		if (e.getSource() == button && isEmployee == true) {
+			this.dispose();
+			System.out.println(employeeNumber);
+			new newWindow();
+		}
+	}
+	public static void main(String[] args) {
+		// Set the look and feel of the UI to the system's default
+		try {
+		    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+
+		// Create a new instance of MyFrame
+		MyFrame frame = new MyFrame();
+
+	    }
+}
+
